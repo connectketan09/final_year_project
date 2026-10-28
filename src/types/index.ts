@@ -1,5 +1,13 @@
 export type UserRole = 'owner' | 'employee' | 'buyer' | 'supplier' | 'dyer_worker';
 
+export interface UserProfile {
+  name: string;
+  email: string;
+  role: UserRole;
+  company: string;
+  avatar?: string;
+}
+
 export type WorkflowStageId =
   | 'purchase'
   | 'dyeing'

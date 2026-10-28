@@ -10,6 +10,7 @@ import type {
   RawMaterial,
   SaleRecord,
   UserRole,
+  UserProfile,
   WipBatch,
   WorkflowStage,
   WorkflowStageId,
@@ -29,9 +30,17 @@ import {
 } from '../data/initialData';
 
 interface ERPContextType {
-  // Role
+  // Role & Authentication
   role: UserRole;
   setRole: (role: UserRole) => void;
+  currentUser: UserProfile | null;
+  login: (user: UserProfile) => void;
+  logout: () => void;
+  isAuthModalOpen: boolean;
+  openAuthModal: (mode?: 'login' | 'signup') => void;
+  closeAuthModal: () => void;
+  authModalMode: 'login' | 'signup';
+  setAuthModalMode: (mode: 'login' | 'signup') => void;
 
   // Workflow
   workflowStages: WorkflowStage[];
@@ -169,8 +178,16 @@ interface ERPContextType {
 const ERPContext = createContext<ERPContextType | undefined>(undefined);
 
 export const ERPProvider = ({ children }: { children: ReactNode }) => {
-  // 1. Role
+  // 1. Role & Auth
   const [role, setRole] = useState<UserRole>('owner');
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>({
+    name: 'Ketan Rajput (Admin)',
+    email: 'ketan@parshvacreation.in',
+    role: 'owner',
+    company: 'UID Denims × Parshva Creation'
+  });
+  const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'signup'>('login');
 
   // 2. Workflow
   const [workflowStages, setWorkflowStages] = useState<WorkflowStage[]>(INITIAL_WORKFLOW_STAGES);
@@ -290,6 +307,32 @@ export const ERPProvider = ({ children }: { children: ReactNode }) => {
       details
     };
     setAuditLogs((prev) => [newEntry, ...prev]);
+  };
+
+  const openAuthModal = (mode: 'login' | 'signup' = 'login') => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
+  };
+
+  const login = (user: UserProfile) => {
+    setCurrentUser(user);
+    setRole(user.role);
+    setAuthModalOpen(false);
+    logAudit(
+      'USER_LOGIN',
+      'SECURITY',
+      `Terminal authenticated: ${user.name} (${user.role.toUpperCase()}) - ${user.company}`
+    );
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    setRole('buyer');
+    logAudit('USER_LOGOUT', 'SECURITY', 'Terminal session terminated - switched to restricted buyer view');
   };
 
   // Costing calculations
@@ -1152,6 +1195,14 @@ export const ERPProvider = ({ children }: { children: ReactNode }) => {
       value={{
         role,
         setRole,
+        currentUser,
+        login,
+        logout,
+        isAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
+        authModalMode,
+        setAuthModalMode,
         workflowStages,
         activeStageId,
         setActiveStageId,
