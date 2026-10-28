@@ -1,0 +1,327 @@
+/* ==========================================================================
+   FACTORY FLOOR SVG ANIMATIONS & INDUSTRIAL GRAPHICS
+   ========================================================================== */
+
+.factory-scene-wrapper {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  margin: 1.5rem 0 2rem 0;
+  position: relative;
+}
+
+.factory-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1.25rem;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.factory-status-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.live-indicator-pulse {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #22C55E;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulseGreen 1.8s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.live-status-text {
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: 0.04em;
+}
+
+.live-tag {
+  background-color: #E2E8F0;
+  color: #334155;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.factory-status-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-pill {
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+  font-size: 0.72rem;
+}
+
+.stat-pill.active {
+  background-color: #DCFCE7;
+  border-color: #86EFAC;
+  color: #15803D;
+  font-weight: 600;
+}
+
+.factory-svg-container {
+  width: 100%;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  position: relative;
+}
+
+.factory-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.factory-caption-bar {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background-color: #F8FAFC;
+  border-top: 1px solid #F1F5F9;
+}
+
+.caption-pill {
+  font-size: 0.76rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* ================== SVG KEYFRAME ANIMATIONS ================== */
+
+/* 1. Conveyor Belt Dash Animation */
+.animated-conveyor-belt {
+  animation: conveyorMove 1.6s linear infinite;
+}
+
+@keyframes conveyorMove {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* 2. Flowing denim cloth */
+.flowing-denim-ribbon {
+  stroke-dasharray: 80 4;
+  animation: fabricFlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes fabricFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 20;
+  }
+}
+
+/* 3. Rotating Denim Roll */
+.rotating-denim-roll {
+  transform-origin: 130px 210px;
+  animation: rollRotate 12s linear infinite;
+}
+
+@keyframes rollRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 4. Rotating Dyeing Drum */
+.rotating-dye-drum {
+  transform-origin: 365px 245px;
+  animation: drumRotate 6s linear infinite;
+}
+
+@keyframes drumRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 5. Rollers Spin */
+.subtle-roller-spin {
+  transform-origin: center;
+  animation: rollRotate 3s linear infinite;
+}
+
+/* 6. Needle Reciprocating Motion */
+.needle-reciprocating {
+  animation: needleStroke 0.22s ease-in-out infinite alternate;
+}
+
+@keyframes needleStroke {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+/* 7. Worker Arm Movement */
+.worker-arm-motion {
+  transform-origin: 28px 46px;
+  animation: armGuide 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes armGuide {
+  0% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+
+/* 8. Tailor Hand Motion */
+.tailor-hand-motion {
+  transform-origin: 12px 42px;
+  animation: tailorFeed 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes tailorFeed {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(2px) translateX(-2px);
+  }
+}
+
+/* 9. QC Inspector Stamp Motion */
+.worker-qc-stamp {
+  transform-origin: 10px 42px;
+  animation: qcMeasure 3s ease-in-out infinite;
+}
+
+@keyframes qcMeasure {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(-2px);
+  }
+}
+
+/* 10. Rising Steam from Dyeing Drum */
+.rising-steam {
+  animation: steamRise 3s ease-in-out infinite;
+}
+
+@keyframes steamRise {
+  0% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-16px);
+    opacity: 0.1;
+  }
+}
+
+/* 11. Pressure Gauge Needle Twitch */
+.gauge-needle-twitch {
+  transform-origin: 12px 12px;
+  animation: gaugeTwitch 2.2s ease-in-out infinite;
+}
+
+@keyframes gaugeTwitch {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(6deg);
+  }
+  70% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* 12. Blinking LED Indicator */
+.blinking-led {
+  animation: ledBlink 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes ledBlink {
+  0% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 13. Barcode Laser Sweep */
+.barcode-laser-sweep {
+  animation: laserSweep 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes laserSweep {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 0.9;
+  }
+}
+
+/* 14. Station Hover & Active Styling */
+.station-group {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.station-group:hover {
+  filter: drop-shadow(0 4px 10px rgba(30, 58, 138, 0.12));
+}
+
+.station-group.active-station {
+  filter: drop-shadow(0 6px 14px rgba(34, 197, 94, 0.2));
+}
